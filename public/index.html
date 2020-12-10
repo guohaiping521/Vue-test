@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script src="/dist/umd/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: "#app",
+      data() {
+        return {
+          message: "aaa",
+        };
+      },
+      computed: {
+        messageCom() {
+          return 1;
+        },
+      },
+      watch: {
+        message() {
+          console.log("监听到watch");
+        },
+      },
+    });
+  </script>
+</html>
