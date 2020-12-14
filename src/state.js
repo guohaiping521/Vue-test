@@ -1,3 +1,4 @@
+import { observe } from "./observe/index.js";
 export function initState(vm) {
   const opts = vm.$options;
   //数据来源 属性 方法 数据  计算属性 watch
@@ -11,17 +12,17 @@ export function initState(vm) {
     initData(vm);
   }
   if (opts.computed) initComputed(vm, opts.computed);
-  if (opts.watch && opts.watch !== nativeWatch) {
+  if (opts.watch) {
     initWatch(vm, opts.watch);
   }
-  console.log(vm.$options);
 }
 function initProps(vm, propsOptions) {}
-function initProps(vm, methods) {}
+function initMethods(vm, methods) {}
 function initData(vm) {
   let data = vm.$options.data;
-  data = typeof data === "function" ? data.call(vm) : data;
-  console.log(data);
+  data = vm._data = typeof data === "function" ? data.call(vm) : data;
+  //mvvm模式:数据变化驱动视图变化
+  observe(data);
 }
 function initComputed(vm, computed) {}
 function initWatch(vm, watch) {}
