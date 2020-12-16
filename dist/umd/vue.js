@@ -42,6 +42,62 @@
     return Constructor;
   }
 
+  function _slicedToArray(arr, i) {
+    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+  }
+
+  function _arrayWithHoles(arr) {
+    if (Array.isArray(arr)) return arr;
+  }
+
+  function _iterableToArrayLimit(arr, i) {
+    if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _e = undefined;
+
+    try {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"] != null) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  }
+
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+
+    for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+
+  function _nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
   var hasProto = ("__proto__" in {});
 
   function def(obj, key, value) {
@@ -54,6 +110,16 @@
 
   function isObject(data) {
     return _typeof(data) === "object" && data !== null;
+  }
+  function proxy(vm, sourse, key) {
+    Object.defineProperty(vm, key, {
+      get: function get() {
+        return vm[sourse][key];
+      },
+      set: function set(newVal) {
+        vm["_data"][key] = newVal;
+      }
+    });
   }
 
   //value.__proto__=arrayMethods; 原型链向上查找，找不到再往上
@@ -166,7 +232,7 @@
       enumerable: true,
       configurable: true,
       get: function get() {
-        console.log("触发了get");
+        console.log("get");
         var value = getter ? getter.call(obj) : val;
         return value;
       },
@@ -212,7 +278,12 @@
 
   function initData(vm) {
     var data = vm.$options.data;
-    data = vm._data = typeof data === "function" ? data.call(vm) : data; //mvvm模式:数据变化驱动视图变化
+    data = vm._data = typeof data === "function" ? data.call(vm) : data;
+
+    for (var key in vm._data) {
+      proxy(vm, "_data", key);
+    } //mvvm模式:数据变化驱动视图变化
+
 
     observe(data);
   }
@@ -304,7 +375,6 @@
 
     if (!root) {
       root = element;
-      console.log("root====", root);
     }
 
     currentParent = element;
@@ -347,12 +417,111 @@
     }
   }
 
-  //ast 语法树  是用对象来描述原生语法  虚拟dom用对象来描述dom节点
+  var defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g;
+
+  function generate(el) {
+    var children = getChildren(el);
+    var code = "_c(\"".concat(el.tag, "\",").concat(el.attrs.length ? genProps(el.attrs) : "undefined", ",").concat(children ? children : "", ")");
+    return code;
+  }
+
+  function getChildren(el) {
+    var children = el.children;
+
+    if (children && children.length > 0) {
+      return "".concat(children.map(function (c) {
+        return gen(c);
+      }));
+    } else {
+      return false;
+    }
+  }
+
+  function gen(child) {
+    //元素标签
+    if (child.type === 1) {
+      return generate(child);
+    } else {
+      var text = child.text;
+      var tokens = [];
+      var lastIndex = defaultTagRE.lastIndex = 0;
+      var match, index;
+
+      while (match = defaultTagRE.exec(text)) {
+        index = match.index;
+
+        if (index > lastIndex) {
+          tokens.push(text.slice(lastIndex, index));
+        }
+
+        tokens.push("_s(".concat(match[1].trim(), ")"));
+        lastIndex = index + match[0].length;
+      }
+
+      if (lastIndex < text.length) {
+        tokens.push(text.slice(lastIndex));
+      }
+
+      return "_v(".concat(tokens.join("+"), ")");
+    }
+  }
+
+  function genProps(attrs) {
+    var str = "";
+
+    for (var index = 0; index < attrs.length; index++) {
+      var attr = attrs[index];
+
+      if (attr.name === "style") {
+        (function () {
+          var obj = {};
+          attr.value.split(";").forEach(function (element) {
+            var _element$split = element.split(":"),
+                _element$split2 = _slicedToArray(_element$split, 2),
+                key = _element$split2[0],
+                value = _element$split2[1];
+
+            obj[key] = value;
+          });
+          attr.value = obj;
+        })();
+      }
+
+      str += "".concat(attr.name, ":").concat(JSON.stringify(attr.value), ",");
+    }
+
+    return "{".concat(str.slice(0, -1), "}");
+  }
+
   function compileToFunctions(template) {
     //解析html字符串，将html字符串=>ast语法树
-    var root = parseHTML(template); //ast语法树转为render函数，字符串拼接（模板引擎）
+    var root = parseHTML(template);
+    var code = generate(root); //所有模板引擎的实现都需要new Function +with
 
-    return function render() {};
+    var renderFn = new Function("with(this){ return ".concat(code, "}")); //ast语法树转为render函数，字符串拼接（模板引擎）
+    //ast转为js的语法
+
+    return renderFn;
+  }
+
+  var Watcher = function Watcher() {
+    _classCallCheck(this, Watcher);
+  };
+
+  function lifecycleMixin(Vue) {
+    console.log("Vue", Vue);
+
+    Vue.prototype._update = function (Vue) {};
+  }
+  function mountComponent(vm, el) {
+    //渲染页面
+    var updateComponent = function updateComponent() {
+      //vm._render()通过render方法返回虚拟dom，然后进行更新
+      vm._update(vm._render());
+    }; //渲染watcher，视图变化，渲染更新
+
+
+    new Watcher(vm, updateComponent, function () {});
   }
 
   function initMixin(Vue) {
@@ -383,7 +552,13 @@
         var render = compileToFunctions(template);
         options.render = render;
       }
+
+      mountComponent(vm);
     };
+  }
+
+  function renderMixin(Vue) {
+    Vue.prototype._render = function (Vue) {};
   }
 
   function Vue(options) {
@@ -391,6 +566,8 @@
   }
 
   initMixin(Vue);
+  lifecycleMixin(Vue);
+  renderMixin(Vue);
 
   return Vue;
 

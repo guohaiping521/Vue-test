@@ -71,7 +71,6 @@ function start(tagName, attrs) {
   let element = createASTElement(tagName, attrs);
   if (!root) {
     root = element;
-    console.log("root====", root);
   }
   currentParent = element;
   stack.push(element);
