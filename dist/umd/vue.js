@@ -232,7 +232,6 @@
       enumerable: true,
       configurable: true,
       get: function get() {
-        console.log("get");
         var value = getter ? getter.call(obj) : val;
         return value;
       },
@@ -451,7 +450,7 @@
         index = match.index;
 
         if (index > lastIndex) {
-          tokens.push(text.slice(lastIndex, index));
+          tokens.push(JSON.stringify(text.slice(lastIndex, index)));
         }
 
         tokens.push("_s(".concat(match[1].trim(), ")"));
@@ -459,7 +458,7 @@
       }
 
       if (lastIndex < text.length) {
-        tokens.push(text.slice(lastIndex));
+        tokens.push(JSON.stringify(text.slice(lastIndex)));
       }
 
       return "_v(".concat(tokens.join("+"), ")");
@@ -508,20 +507,73 @@
     _classCallCheck(this, Watcher);
   };
 
-  function lifecycleMixin(Vue) {
-    console.log("Vue", Vue);
+  function patch(oldVnode, vnode) {
+    //元素节点 nodeType 1   属性节点 nodeType 2
+    var isRealElement = oldVnode.nodeType;
 
-    Vue.prototype._update = function (Vue) {};
+    if (isRealElement) {
+      var oldElm = oldVnode;
+      var parentElm = oldElm.parentNode;
+      var el = createElm(vnode);
+      parentElm.insertBefore(el, oldElm.nextSibling);
+      parentElm.removeChild(oldElm);
+    } else {
+      console.log("isRealElement2", isRealElement);
+    }
+  }
+
+  function createElm(vnode) {
+    var tag = vnode.tag,
+        children = vnode.children,
+        text = vnode.text;
+
+    if (typeof tag === "string") {
+      vnode.el = document.createElement(tag);
+      updateProperties(vnode);
+      children.forEach(function (child) {
+        vnode.el.appendChild(createElm(child));
+      });
+    } else {
+      vnode.el = document.createTextNode(text);
+    }
+
+    return vnode.el;
+  }
+
+  function updateProperties(vnode) {
+    var newProps = vnode.data || {};
+    var el = vnode.el;
+
+    for (var key in newProps) {
+      if (key === "style") {
+        for (var styleName in newProps.style) {
+          el.style[styleName.trim()] = newProps.style[styleName];
+        }
+      } else if (key === "class") {
+        el.className = newProps["class"];
+      } else {
+        el.setAttribute(key, newProps[key]);
+      }
+    }
+  }
+
+  function lifecycleMixin(Vue) {
+    Vue.prototype._update = function (vnode) {
+      var vm = this;
+      vm.$el = patch(vm.$el, vnode); //用虚拟节点创建出真实节点，替换掉真实的el节点
+    };
   }
   function mountComponent(vm, el) {
     //渲染页面
     var updateComponent = function updateComponent() {
-      //vm._render()通过render方法返回虚拟dom，然后进行更新
+      vm.$el = el; //vm._render()通过render方法返回虚拟dom，然后进行更新
+
       vm._update(vm._render());
-    }; //渲染watcher，视图变化，渲染更新
+    }; //渲染watcher，视图变化，渲染更新  true代表他是一个渲染的Watcher
 
 
-    new Watcher(vm, updateComponent, function () {});
+    new Watcher(vm, updateComponent, function () {}, true);
+    updateComponent();
   }
 
   function initMixin(Vue) {
@@ -553,12 +605,53 @@
         options.render = render;
       }
 
-      mountComponent(vm);
+      mountComponent(vm, el);
     };
   }
 
+  var VNode = function VNode(tag, data, children, text) {
+    _classCallCheck(this, VNode);
+
+    this.tag = tag;
+    this.data = data;
+    this.children = children;
+    this.text = text;
+  };
+  function createTextVNode(val) {
+    return new VNode(undefined, undefined, undefined, val);
+  }
+
+  function createElement(tag) {
+    var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    for (var _len = arguments.length, children = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+      children[_key - 2] = arguments[_key];
+    }
+
+    return new VNode(tag, data, children, undefined);
+  }
+
   function renderMixin(Vue) {
-    Vue.prototype._render = function (Vue) {};
+    //创建元素虚拟节点
+    Vue.prototype._c = function () {
+      return createElement.apply(void 0, arguments);
+    }; //创建文本的虚拟节点
+
+
+    Vue.prototype._v = function (val) {
+      return createTextVNode(val);
+    }; //JSON.stringify
+
+
+    Vue.prototype._s = function (val) {
+      return val == null ? "" : _typeof(val) === "object" ? JSON.stringify(val) : val;
+    };
+
+    Vue.prototype._render = function () {
+      var vm = this;
+      var render = vm.$options.render;
+      return render.call(vm);
+    };
   }
 
   function Vue(options) {
@@ -568,6 +661,7 @@
   initMixin(Vue);
   lifecycleMixin(Vue);
   renderMixin(Vue);
+  //重新生成虚拟dom-->更新dom
 
   return Vue;
 

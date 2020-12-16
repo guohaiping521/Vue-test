@@ -29,13 +29,13 @@ function gen(child) {
     while ((match = defaultTagRE.exec(text))) {
       index = match.index;
       if (index > lastIndex) {
-        tokens.push(text.slice(lastIndex, index));
+        tokens.push(JSON.stringify(text.slice(lastIndex, index)));
       }
       tokens.push(`_s(${match[1].trim()})`);
       lastIndex = index + match[0].length;
     }
     if (lastIndex < text.length) {
-      tokens.push(text.slice(lastIndex));
+      tokens.push(JSON.stringify(text.slice(lastIndex)));
     }
     return `_v(${tokens.join("+")})`;
   }

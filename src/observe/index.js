@@ -55,7 +55,6 @@ export function defineReactive(obj, key, val) {
     enumerable: true,
     configurable: true,
     get() {
-      console.log("get");
       const value = getter ? getter.call(obj) : val;
       return value;
     },

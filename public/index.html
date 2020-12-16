@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
   </head>
   <body>
-    <div id="app" style="color: red; background: blue">
-      <p>hello1{{name}}hello2{{address}}hello3</p>
+    <div id="app" style="font-size: 40px; color: red; background: blue">
+      <p>hello{{name}}{{address}}</p>
+      <span>hello</span>
     </div>
   </body>
   <script src="/dist/umd/vue.js"></script>
@@ -14,8 +15,8 @@
       el: "#app",
       data() {
         return {
-          name: "name1",
-          address: "address1",
+          name: "name",
+          address: "address",
           user: {
             name: [
               { a: 1 },
@@ -42,6 +43,5 @@
     });
     vm._data.user.name.splice(1, 2, "1");
     vm._data.user.name.push("111");
-    console.log(vm.name);
   </script>
 </html>
