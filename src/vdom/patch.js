@@ -7,8 +7,7 @@ export function patch(oldVnode, vnode) {
     let el = createElm(vnode);
     parentElm.insertBefore(el, oldElm.nextSibling);
     parentElm.removeChild(oldElm);
-  } else {
-    console.log("isRealElement2", isRealElement);
+    return el;
   }
 }
 function createElm(vnode) {

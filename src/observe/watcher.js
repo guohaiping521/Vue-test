@@ -1,1 +1,3 @@
-export default class Watcher {}
+export default class Watcher {
+  constructor() {}
+}
