@@ -5,8 +5,7 @@
   </head>
   <body>
     <div id="app" style="font-size: 40px; color: red; background: blue">
-      <p>hello{{name}}{{address}}</p>
-      <span>hello</span>
+      <p>{{name}}</p>
     </div>
   </body>
   <script src="/dist/umd/vue.js"></script>
@@ -33,17 +32,13 @@
         };
       },
       beforeCreate() {
-        console.log("beforeCreate", this.name);
+        // console.log("beforeCreate", this.name);
       },
       created() {
         console.log("created", this.name);
       },
-      beforeMount() {
-        console.log("beforeMount", this.$el);
-      },
-      mounted() {
-        console.log("mounted", this.$el);
-      },
+      beforeMount() {},
+      mounted() {},
       computed: {
         messageCom() {
           return 1;
@@ -55,7 +50,6 @@
         },
       },
     });
-    vm._data.user.name.splice(1, 2, "1");
-    vm._data.user.name.push("111");
+    vm.name = "我更改了";
   </script>
 </html>

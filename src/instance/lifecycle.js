@@ -16,7 +16,6 @@ export function mountComponent(vm, el) {
   };
   //渲染watcher，视图变化，渲染更新  true代表他是一个渲染的Watcher
   new Watcher(vm, updateComponent, () => {}, true);
-  updateComponent();
   callHook(vm, "mounted");
 }
 export function callHook(vm, hook) {

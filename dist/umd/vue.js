@@ -263,6 +263,45 @@
     };
   });
 
+  var uid = 0;
+
+  var Dep = /*#__PURE__*/function () {
+    function Dep() {
+      _classCallCheck(this, Dep);
+
+      this.id = uid++;
+      this.subs = [];
+    }
+
+    _createClass(Dep, [{
+      key: "depend",
+      value: function depend() {
+        this.subs.push(Dep.target);
+      }
+    }, {
+      key: "notify",
+      value: function notify() {
+        console.log(this.subs);
+        this.subs.forEach(function (sub) {
+          sub.update();
+        });
+      }
+    }]);
+
+    return Dep;
+  }();
+  Dep.target = null;
+  var targerStack = [];
+  function pushTarget(target) {
+    Dep.target = target;
+    targerStack.push(target);
+  }
+  function popTarget() {
+    targerStack.pop();
+    console.log("targerStack", targerStack);
+    Dep.target = targerStack[targerStack.length - 1];
+  }
+
   function observe(data) {
     var isObj = isObject(data);
 
@@ -319,6 +358,7 @@
     value.__proto__ = src;
   }
   function defineReactive(obj, key, val) {
+    var dep = new Dep();
     var property = Object.getOwnPropertyDescriptor(obj, key);
     var getter = property && property.get;
     var setter = property && property.set;
@@ -332,6 +372,10 @@
       enumerable: true,
       configurable: true,
       get: function get() {
+        if (Dep.target) {
+          dep.depend();
+        }
+
         var value = getter ? getter.call(obj) : val;
         return value;
       },
@@ -344,6 +388,7 @@
 
         val = setter ? setter.call(obj, newVal) : newVal;
         observe(newVal);
+        dep.notify();
       }
     });
   }
@@ -603,9 +648,40 @@
     return renderFn;
   }
 
-  var Watcher = function Watcher() {
-    _classCallCheck(this, Watcher);
-  };
+  var uid$1 = 0;
+
+  var Watcher = /*#__PURE__*/function () {
+    function Watcher(vm, exprOrFn, callback, optioins) {
+      _classCallCheck(this, Watcher);
+
+      this.id = ++uid$1; // uid for batching
+
+      this.vm = vm;
+      this.callback = callback;
+      this.optioins = optioins;
+      this.getter = exprOrFn;
+      this.get();
+    }
+
+    _createClass(Watcher, [{
+      key: "get",
+      value: function get() {
+        pushTarget(this);
+        this.getter();
+        popTarget();
+      }
+    }, {
+      key: "addDep",
+      value: function addDep() {}
+    }, {
+      key: "update",
+      value: function update() {
+        this.get();
+      }
+    }]);
+
+    return Watcher;
+  }();
 
   function patch(oldVnode, vnode) {
     //元素节点 nodeType 1   属性节点 nodeType 2
@@ -673,7 +749,6 @@
 
 
     new Watcher(vm, updateComponent, function () {}, true);
-    updateComponent();
     callHook(vm, "mounted");
   }
   function callHook(vm, hook) {
@@ -776,15 +851,11 @@
 
     Vue.mixin({
       a: 1,
-      beforeCreate: function beforeCreate() {
-        console.log(1);
-      }
+      beforeCreate: function beforeCreate() {}
     });
     Vue.mixin({
       b: 2,
-      beforeCreate: function beforeCreate() {
-        console.log(2);
-      }
+      beforeCreate: function beforeCreate() {}
     });
   }
 

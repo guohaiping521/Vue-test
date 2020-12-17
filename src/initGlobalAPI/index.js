@@ -7,14 +7,10 @@ export function initGlobalAPI(Vue) {
   };
   Vue.mixin({
     a: 1,
-    beforeCreate() {
-      console.log(1);
-    },
+    beforeCreate() {},
   });
   Vue.mixin({
     b: 2,
-    beforeCreate() {
-      console.log(2);
-    },
+    beforeCreate() {},
   });
 }

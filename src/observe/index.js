@@ -1,5 +1,6 @@
 import { isObject, hasProto, def } from "../util/index.js";
 import { arrayMethods } from "./array";
+import Dep from "./dep";
 export function observe(data) {
   let isObj = isObject(data);
   if (!isObj) {
@@ -44,6 +45,7 @@ export function protoAugment(value, src) {
 }
 
 export function defineReactive(obj, key, val) {
+  const dep = new Dep();
   const property = Object.getOwnPropertyDescriptor(obj, key);
   const getter = property && property.get;
   const setter = property && property.set;
@@ -55,6 +57,9 @@ export function defineReactive(obj, key, val) {
     enumerable: true,
     configurable: true,
     get() {
+      if (Dep.target) {
+        dep.depend();
+      }
       const value = getter ? getter.call(obj) : val;
       return value;
     },
@@ -65,6 +70,7 @@ export function defineReactive(obj, key, val) {
       }
       val = setter ? setter.call(obj, newVal) : newVal;
       observe(newVal);
+      dep.notify();
     },
   });
 }
