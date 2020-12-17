@@ -158,8 +158,7 @@
 
       if (inserted) {
         ob.observeArray(inserted);
-      } // console.log("args", args);
-
+      }
     };
   });
 
@@ -242,8 +241,7 @@
           return;
         }
 
-        val = setter ? setter.call(obj, newVal) : newVal; // console.log("newVal==", newVal);
-
+        val = setter ? setter.call(obj, newVal) : newVal;
         observe(newVal);
       }
     });
@@ -416,8 +414,8 @@
     }
   }
 
+  //找到{{abc}}这样的.+的意义是最小匹配, 找到符合的马上结束
   var defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g;
-
   function generate(el) {
     var children = getChildren(el);
     var code = "_c(\"".concat(el.tag, "\",").concat(el.attrs.length ? genProps(el.attrs) : "undefined", ",").concat(children ? children : "", ")");
@@ -492,6 +490,7 @@
     return "{".concat(str.slice(0, -1), "}");
   }
 
+  //ast 语法树  是用对象来描述原生语法  虚拟dom用对象来描述dom节点
   function compileToFunctions(template) {
     //解析html字符串，将html字符串=>ast语法树
     var root = parseHTML(template);

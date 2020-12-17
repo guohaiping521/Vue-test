@@ -31,6 +31,5 @@ methodsToPatch.forEach((method) => {
     if (inserted) {
       ob.observeArray(inserted);
     }
-    // console.log("args", args);
   };
 });

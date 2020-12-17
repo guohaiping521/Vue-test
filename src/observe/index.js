@@ -64,7 +64,6 @@ export function defineReactive(obj, key, val) {
         return;
       }
       val = setter ? setter.call(obj, newVal) : newVal;
-      // console.log("newVal==", newVal);
       observe(newVal);
     },
   });
