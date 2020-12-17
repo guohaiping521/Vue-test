@@ -10,20 +10,19 @@ export default class Dep {
   }
 
   notify() {
-    console.log(this.subs);
     this.subs.forEach((sub) => {
       sub.update();
     });
   }
 }
-Dep.target = null;
+
 const targerStack = [];
+Dep.target = null;
 export function pushTarget(target) {
   Dep.target = target;
   targerStack.push(target);
 }
 export function popTarget() {
   targerStack.pop();
-  console.log("targerStack", targerStack);
   Dep.target = targerStack[targerStack.length - 1];
 }

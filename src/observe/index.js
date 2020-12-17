@@ -1,6 +1,6 @@
 import { isObject, hasProto, def } from "../util/index.js";
 import { arrayMethods } from "./array";
-import Dep from "./dep";
+import Dep from "./dep.js";
 export function observe(data) {
   let isObj = isObject(data);
   if (!isObj) {
