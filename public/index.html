@@ -5,7 +5,7 @@
   </head>
   <body>
     <div id="app" style="font-size: 40px; color: red; background: blue">
-      <p>{{name}}{{name}}{{name}}{{name}}</p>
+      <p>{{array}}</p>
     </div>
   </body>
   <script src="/dist/umd/vue.js"></script>
@@ -15,6 +15,7 @@
       data() {
         return {
           name: "name",
+          array: [1, 2, 3],
           address: {
             address: "address",
           },
@@ -50,6 +51,13 @@
         },
       },
     });
-    vm.name = "我更改了";
+    vm.array.push(4);
+    vm.array.push(4);
+    vm.array.push(4);
+    vm.array.push(4);
+    vm.$nextTick(() => {
+      console.log("nextTick");
+      console.log(vm.$el.innerHTML);
+    });
   </script>
 </html>

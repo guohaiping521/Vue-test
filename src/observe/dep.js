@@ -4,9 +4,12 @@ export default class Dep {
     this.id = uid++;
     this.subs = [];
   }
+  addSub(sub) {
+    this.subs.push(sub);
+  }
 
   depend() {
-    this.subs.push(Dep.target);
+    Dep.target.addDep(this);
   }
 
   notify() {

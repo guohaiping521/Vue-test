@@ -14,7 +14,7 @@ const methodsToPatch = [
 ];
 methodsToPatch.forEach((method) => {
   arrayMethods[method] = function (...args) {
-    arrayProto[method].apply(this, args);
+    const result = arrayProto[method].apply(this, args);
     const ob = this.__ob__;
     let inserted;
     switch (method) {
@@ -31,5 +31,7 @@ methodsToPatch.forEach((method) => {
     if (inserted) {
       ob.observeArray(inserted);
     }
+    ob.dep.notify();
+    return result;
   };
 });

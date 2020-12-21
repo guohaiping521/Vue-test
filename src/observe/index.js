@@ -13,6 +13,7 @@ export class Observer {
     //如果是数组并不会对索引进行观测，会导致消耗过大，性能问题
     //前端开发很少操作索引,如果对象里放置的对象进行监控
     //对数组的对象进行劫持、对操作数组的方法进行重写（push shift unshift）
+    this.dep = new Dep();
     def(value, "__ob__", this);
     if (Array.isArray(value)) {
       if (hasProto) {
@@ -52,13 +53,16 @@ export function defineReactive(obj, key, val) {
   if ((!getter || setter) && arguments.length === 2) {
     val = obj[key];
   }
-  observe(val);
+  let childOb = observe(val);
   Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
     get() {
       if (Dep.target) {
         dep.depend();
+        if (childOb) {
+          childOb.dep.depend();
+        }
       }
       const value = getter ? getter.call(obj) : val;
       return value;

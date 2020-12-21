@@ -1,9 +1,9 @@
-import Vue from ".";
 import { initState } from "./state";
 import { compileToFunctions } from "./compiler/index.js";
 import { mountComponent } from "./instance/lifecycle";
 import { mergeOptions } from "./util/index";
 import { callHook } from "./instance/lifecycle";
+import { nextTick } from "./util/next-tick";
 export function initMixin(Vue) {
   Vue.prototype._init = function (options) {
     const vm = this;
@@ -31,4 +31,5 @@ export function initMixin(Vue) {
     }
     mountComponent(vm, el);
   };
+  Vue.prototype.$nextTick = nextTick;
 }
