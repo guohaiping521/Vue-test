@@ -1,5 +1,6 @@
 import { isObject, hasProto, def } from "../util/index.js";
 import { arrayMethods } from "./array";
+
 import Dep from "./dep.js";
 export function observe(data) {
   let isObj = isObject(data);
@@ -58,13 +59,16 @@ export function defineReactive(obj, key, val) {
     enumerable: true,
     configurable: true,
     get() {
+      const value = getter ? getter.call(obj) : val;
       if (Dep.target) {
         dep.depend();
         if (childOb) {
           childOb.dep.depend();
+          if (Array.isArray(value)) {
+            dependArray(value);
+          }
         }
       }
-      const value = getter ? getter.call(obj) : val;
       return value;
     },
     set(newVal) {
@@ -77,4 +81,12 @@ export function defineReactive(obj, key, val) {
       dep.notify();
     },
   });
+  function dependArray(array) {
+    array.forEach((element) => {
+      element && element.__ob__ && element.__ob__.dep.depend();
+      if (Array.isArray(element)) {
+        dependArray(element);
+      }
+    });
+  }
 }

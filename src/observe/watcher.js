@@ -8,8 +8,9 @@ class Watcher {
     this.callback = callback;
     this.optioins = optioins;
     this.getter = exprOrFn;
-    this.depIds = new Set();
     this.newDepIds = new Set();
+    this.depIds = new Set();
+    this.newDeps = [];
     this.get();
   }
   get() {
@@ -24,12 +25,11 @@ class Watcher {
       dep.addSub(this);
     }
   }
+  run() {
+    this.get();
+  }
   update() {
     queueWatcher(this);
-  }
-  run() {
-    console.log("run");
-    this.get();
   }
 }
 export default Watcher;

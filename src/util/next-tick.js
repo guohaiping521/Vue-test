@@ -1,16 +1,14 @@
-const callbacks = [];
 let waiting = false;
-function flushCallbacks() {
-  console.log("执行", callbacks);
+const callbacks = [];
+export function flushCallbacks(params) {
   callbacks.forEach((element) => {
     element();
-    waiting = false;
   });
+  waiting = false;
 }
 export function nextTick(cb) {
   callbacks.push(cb);
-  console.log("callbacks", callbacks);
-  if (waiting === false) {
+  if (!waiting) {
     waiting = true;
     setTimeout(flushCallbacks, 0);
   }

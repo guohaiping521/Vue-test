@@ -7,7 +7,8 @@ export default class Dep {
   addSub(sub) {
     this.subs.push(sub);
   }
-
+  //存在多个watcher,更改数据，调用多个watcher update更新
+  //相同的存在一个watcher
   depend() {
     Dep.target.addDep(this);
   }
@@ -21,6 +22,7 @@ export default class Dep {
 
 const targerStack = [];
 Dep.target = null;
+//Watcher
 export function pushTarget(target) {
   Dep.target = target;
   targerStack.push(target);

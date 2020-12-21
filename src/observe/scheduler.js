@@ -14,7 +14,7 @@ export function queueWatcher(watcher) {
 function flushSchedulerQueue() {
   queue.forEach((element) => {
     element.run();
-    // queue = [];
-    // has = {};
+    queue = [];
+    has = {};
   });
 }
