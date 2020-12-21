@@ -5,7 +5,7 @@
   </head>
   <body>
     <div id="app" style="font-size: 40px; color: red; background: blue">
-      <p>{{name}}{{name}}{{name}}{{name}}</p>
+      <p>name:{{array}}</p>
     </div>
   </body>
   <script src="/dist/umd/vue.js"></script>
@@ -14,28 +14,16 @@
       el: "#app",
       data() {
         return {
-          name: "name",
-          address: {
-            address: "address",
-          },
-          user: {
-            name: [
-              { a: 1 },
-              { b: 1 },
-              { b: 1 },
-              { b: 1 },
-              { b: 1 },
-              { b: 1 },
-              { b: 1 },
-            ],
-          },
+          name: "guohaiping",
+          address: "地址",
+          array: [],
         };
       },
       beforeCreate() {
         // console.log("beforeCreate", this.name);
       },
       created() {
-        console.log("created", this.name);
+        console.log("created");
       },
       beforeMount() {},
       mounted() {},
@@ -50,6 +38,14 @@
         },
       },
     });
-    vm.name = "我更改了";
+    vm.array.push(1);
+    vm.array.push(2);
+    vm.array.push(3);
+    vm.array.push(4);
+
+    vm.$nextTick(() => {
+      console.log(vm.array);
+      console.log("11111");
+    });
   </script>
 </html>

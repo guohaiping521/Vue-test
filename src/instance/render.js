@@ -1,5 +1,6 @@
 import { createElement } from "../vdom/create-element";
 import { createTextVNode } from "../vdom/vnode";
+import { nextTick } from "../util/next-tick";
 export function renderMixin(Vue) {
   //创建元素虚拟节点
   Vue.prototype._c = function () {
@@ -17,6 +18,8 @@ export function renderMixin(Vue) {
       ? JSON.stringify(val)
       : val;
   };
+
+  Vue.prototype.$nextTick = nextTick;
   Vue.prototype._render = function () {
     const vm = this;
     const { render } = vm.$options;
