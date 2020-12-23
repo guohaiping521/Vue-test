@@ -31,6 +31,7 @@ methodsToPatch.forEach((method) => {
     if (inserted) {
       ob.observeArray(inserted);
     }
+    console.log("111");
     ob.dep.notify();
     return result;
   };

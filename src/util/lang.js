@@ -1,7 +1,8 @@
-export function def(obj, key, value) {
+export function def(obj, key, value, enumerable) {
   Object.defineProperty(obj, key, {
-    enumerable: false,
-    configurable: false,
+    enumerable: !!enumerable,
+    writable: true,
+    configurable: true,
     value,
   });
 }

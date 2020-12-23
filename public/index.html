@@ -8,16 +8,18 @@
       <p>{{array}}</p>
     </div>
   </body>
+  <!--@代表src-->
   <script src="/dist/umd/vue.js"></script>
   <script>
     let vm = new Vue({
       el: "#app",
       data() {
         return {
+          // noUpdateData: Object.freeze({ prop: 4 }),
           name: "name",
           array: [1, 2, 3],
           address: {
-            address: "address",
+            city: "beijing",
           },
           user: {
             name: [
@@ -51,13 +53,13 @@
         },
       },
     });
-    vm.array.push(4);
-    vm.array.push(4);
-    vm.array.push(4);
-    vm.array.push(4);
-    vm.$nextTick(() => {
-      console.log("nextTick");
-      console.log(vm.$el.innerHTML);
-    });
+    Vue.delete(vm.address, "11");
+    // Vue.set(vm.noUpdateData, "country", "shand1ong");
+    // vm.noUpdateData.prop = "prop";
+    // console.log("vm.noUpdateData", vm.noUpdateData);
+    // vm.$nextTick(() => {
+    //   console.log("nextTick");
+    //   console.log(vm.$el.innerHTML);
+    // });
   </script>
 </html>

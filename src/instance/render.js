@@ -18,8 +18,6 @@ export function renderMixin(Vue) {
       ? JSON.stringify(val)
       : val;
   };
-
-  Vue.prototype.$nextTick = nextTick;
   Vue.prototype._render = function () {
     const vm = this;
     const { render } = vm.$options;
