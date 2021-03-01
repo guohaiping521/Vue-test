@@ -5,32 +5,22 @@
   </head>
   <body>
     <div id="app" style="font-size: 40px; color: red; background: blue">
-      <p>{{array}}</p>
+      {{comName}}
     </div>
   </body>
   <!--@代表src-->
   <script src="/dist/umd/vue.js"></script>
   <script>
     let vm = new Vue({
-      el: "#app",
+      el: '#app',
       data() {
         return {
           // noUpdateData: Object.freeze({ prop: 4 }),
-          name: "name",
+          name: 'ghp',
+          age: 12,
           array: [1, 2, 3],
           address: {
-            city: "beijing",
-          },
-          user: {
-            name: [
-              { a: 1 },
-              { b: 1 },
-              { b: 1 },
-              { b: 1 },
-              { b: 1 },
-              { b: 1 },
-              { b: 1 },
-            ],
+            city: 'beijing',
           },
         };
       },
@@ -38,22 +28,49 @@
         // console.log("beforeCreate", this.name);
       },
       created() {
-        console.log("created");
+        // console.log("created");
       },
-      beforeMount() {},
-      mounted() {},
+      //1.watch在内部会对变量取值，computed默认不会
+      //2.computed依赖的值不变，就不会重新渲染
+      //3.computed变量可以用于模板的渲染
       computed: {
-        messageCom() {
-          return 1;
+        comName() {
+          console.log('执行了');
+          return this.name;
         },
       },
+      //1.如果监控的key对应的值是对象是无法获取老状态的
+      //2.watch一个属性，可以注册多个监听器
+      //3.可以写成handler的格式，监听method中的方法和参数传递
       watch: {
-        message() {
-          console.log("监听到watch");
+        name: [
+          {
+            handler: 'handler',
+            sync: true,
+          },
+          {
+            handler: 'handler',
+            sync: true,
+          },
+        ],
+        age(newValue, oldValue) {
+          console.log('监听到watch', newValue, oldValue);
+        },
+      },
+      methods: {
+        handler(newValue, oldValue) {
+          console.log('监听到handler', newValue, oldValue);
         },
       },
     });
-    Vue.delete(vm.address, "11");
+    Vue.delete(vm.address, '11');
+    vm.comName;
+    vm.comName;
+    console.log('一开始==', vm.comName);
+    vm.name = 'guohaiping';
+    console.log('最后==', vm.comName);
+    // vm.age = 14;
+    // vm.name = "dlz";
     // Vue.set(vm.noUpdateData, "country", "shand1ong");
     // vm.noUpdateData.prop = "prop";
     // console.log("vm.noUpdateData", vm.noUpdateData);

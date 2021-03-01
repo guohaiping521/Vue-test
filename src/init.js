@@ -1,4 +1,4 @@
-import { initState } from "./state";
+import { initState } from "./instance/state";
 import { compileToFunctions } from "./compiler/index.js";
 import { mountComponent } from "./instance/lifecycle";
 import { mergeOptions } from "./util/index";
