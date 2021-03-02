@@ -8,11 +8,6 @@ function runStack(n) {
 }
 runStack(10)
 
-
-
-
-
-
 function bar() {
     console.log(myName)
 }
