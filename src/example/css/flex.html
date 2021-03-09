@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1" />
+    <title>debounce</title>
+    <style>
+     *{
+        margin: 0;
+        padding: 0;
+    }
+    .as-flex{
+        display: flex;
+    }
+    .item-1{
+        flex-grow: 1;
+        flex-shrink: 1;
+        height: 100px;
+    }
+    .item-2{
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 400px;
+        height: 100px;
+    }
+    .flex-basis-100{
+        flex-basis: 1100px;
+    }
+    .flex-basis-200{
+        flex-basis: 200px;
+    }
+    .pink{
+        background: pink;
+    }
+    .lightblue{
+        background: lightblue;
+    }
+    .lightgray{
+        background: lightgray
+    }
+    </style>
+  </head>
+
+  <body>
+    <div class="as-flex">
+        <div class="item-1 pink">
+            <span>1 2 3 4 5 6 7 8 9</span>
+        </div>
+        <div class="item-2 lightblue">
+            <span>1 2 3 4 5 6 7 8 9 </span>
+        </div>
+        <div class="item-1 lightgray">
+            <span>1 2 3 4 5 6 7 8 9</span>
+        </div>
+    </div>
+  </body>
+</html>

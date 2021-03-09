@@ -11,17 +11,37 @@
 import java.util.Stack;
 class W {
     public static void main(String[] args) {
-        int[] size={4, 2, 5, 3, 1};
-        int[] Dir={1, 1, 0, 0, 0};
-        System.out.println(solution(size,Dir));   
+        int[] size={1,1,1,1};
+        int[] dir={0,0, 0, 0, 0};
+        System.out.println(solution(size,dir));   
     }
-    static int solution(int[] Size, int[] Dir){
-        Stack<Integer> stack=new Stack<Integer>();
-        for (int i = 0; i < Size.length; i++) {
-            stack.push(i);
-            
+    static int solution(int[] size, int[] dir){
+        final int fishNumber = size.length;
+        if(fishNumber==1){
+          return  fishNumber;
         }
-        return 0;
+        final int left = 0;
+        final int right = 1;
+        Stack<Integer> stack=new Stack<Integer>();
+        for (int i = 0; i < fishNumber; i++) {
+            int hasEatFish=0;
+            final int curFishDirection = dir[i];
+            final int curFishSize = size[i];
+           while(!stack.isEmpty()&&curFishDirection==left&&dir[stack.peek()]==right){
+               if(size[stack.peek()]<curFishSize){
+                    stack.pop();
+               }else{
+                    hasEatFish=1;
+                    break;
+               }
+           }
+            if(hasEatFish!=1){
+                stack.push(i);
+            }     
+        }
+        return stack.size();
     }
-
 }
+
+
+  
