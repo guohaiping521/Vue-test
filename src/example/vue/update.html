@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+    </head> 
+    <body>
+        <div id="app"></div>
+    </body>
+    <script>
+        function vue(){
+            this.$data = {a: 1};
+            this.el = document.getElementById('app');
+            this.virtualdom="";
+            this.observe(this.$data);
+            this.render();
+        }
+        vue.prototype.observe= function(obj){
+            var _this = this
+            let value;
+            for(let key in obj){
+                value = obj[key]
+                if(value instanceof Object){
+                    this.observe(value)//嵌套对象会循环调用自己
+                }else {
+                    Object.defineProperty(obj,key,{
+                        get: function(){
+                            //省略了依赖收集
+                            return value
+                        },
+                        set: function(newValue){
+                            value = newValue;
+                            //省略了触发依赖
+                            _this.render();
+                        }
+                    })
+                }
+            }
+        }
+        vue.prototype.render = function(){
+            //省略了收集视图模板，生成js语法树
+            this.virtualdom = 'i am' + this.$data.a;
+            this.el.innerHTML = this.virtualdom;
+        }
+   
+        let vm = new vue();
+        setTimeout(() => {
+            vm.$data.a = 2;
+        }, 2000);
+	</script>
+</html>

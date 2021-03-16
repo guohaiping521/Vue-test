@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      (window.IS_DEVELOPMENT = !1), (window.T1 = +new Date());
+    </script>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-dns-prefetch-control" content="on" />
+    <script>
+      try {
+        window.__bd_gitID = 'yike_fe/sell-payment';
+      } catch (e) {}
+    </script>
+    <link rel="dns-prefetch" href="https://yy-s.zuoyebang.cc" crossorigin />
+    <link rel="dns-prefetch" href="https://idcmap.zuoyebang.com" crossorigin />
+    <link rel="dns-prefetch" href="https://img.zuoyebang.cc" crossorigin />
+    <link rel="dns-prefetch" href="https://c1-sell.zuoyebang.com" crossorigin />
+    <link rel="dns-prefetch" href="https://c2-sell.zuoyebang.com" crossorigin />
+    <link rel="preconnect" href="https://idcmap.zuoyebang.com" crossorigin />
+    <link rel="preconnect" href="https://yy-s.zuoyebang.cc" crossorigin />
+    <link rel="preconnect" href="https://img.zuoyebang.cc" crossorigin />
+    <link rel="preconnect" href="https://c1-sell.zuoyebang.com" crossorigin />
+    <link rel="preconnect" href="https://c2-sell.zuoyebang.com" crossorigin />
+    <meta name="format-detection" content="telephone=no" />
+    <meta
+      name="viewport"
+      content="width=device-width,height=device-height,minimum-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="作业帮直播课，是作业帮旗下优质在线直播辅导产品。课程涵盖小初高三个学段全部学科。作业帮直播课名师教学经验丰富，学生在家听课，在线互动，课后助教批改讲解作业，保障孩子学习效果。"
+    />
+    <meta
+      name="keywords"
+      content="作业帮，直播课，作业帮直播课，直播课作业帮，直播课，在线学习，在线辅导，名师直播课，数学辅导，英语辅导，物理辅导，中小学辅导课程"
+    />
+    <title>确认订单</title>
+    <link
+      rel="shortcut icon"
+      href="https://yy-s.zuoyebang.cc/static/fudao/base/resource/favicon.ico"
+    />
+    <style>
+      html {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-overflow-scrolling: touch;
+        font-family: PingFangSC-Regular, 'PingFang SC', arial, tahoma,
+          'Microsoft Yahei', '\5b8b\4f53', sans-serif;
+      }
+    </style>
+    <script>
+      !(function (e) {
+        var i = e || this,
+          r = i.document.documentElement,
+          t = r.currentStyle
+            ? r.currentStyle.fontSize
+            : getComputedStyle(r, !1).fontSize,
+          l = parseFloat(t) / 16,
+          n = i.devicePixelRatio || 1,
+          o = (function () {
+            var e = r.clientWidth,
+              t = ~~((((e / 720) * 100) / l) * 1e4) / 1e4;
+            r.style.fontSize = e ? ((e / 720) * 100) / l + 'px' : '100px';
+            var n =
+              ~~(1e4 * i.getComputedStyle(r).fontSize.replace('px', '')) / 1e4;
+            return (
+              t != n && (r.style.fontSize = (t / n) * t + 'px'),
+              arguments.callee
+            );
+          })(),
+          n = 3 <= n ? 3 : 2 <= n ? 2 : 1;
+        r.setAttribute('data-dpr', n),
+          i.addEventListener && i.addEventListener('resize', o, !1);
+      })(this);
+    </script>
+    <style>
+      #_skeleton {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9990;
+        padding: 0;
+        overflow: hidden;
+        transition: z-index 0s 0.1s, opacity 0.1s ease-in-out;
+        -moz-transition: z-index 0s 0.1s, opacity 0.1s ease-in-out;
+        -webkit-transition: z-index 0s 0.1s, opacity 0.1s ease-in-out;
+        -o-transition: z-index 0s 0.1s, opacity 0.1s ease-in-out;
+      }
+      #_skeleton.skeleton-hide {
+        opacity: 0;
+        z-index: -9999;
+      }
+    </style>
+    <style>
+      #count-down-time .class-rest_payTime .rest_desc {
+        margin: 0 0.16rem 0 0 !important;
+        color: #141414 !important;
+        font-weight: 700 !important;
+      }
+    </style>
+    <link
+      href="https://yy-s.zuoyebang.cc/static/hy/yike-app-ui/2.3.15/theme-chalk/index.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://yy-s.zuoyebang.cc/static/hy/sell-payment/css/add-order.ed6597fa.css"
+      rel="preload"
+      as="style"
+    />
+    <link
+      href="https://yy-s.zuoyebang.cc/static/hy/sell-payment/css/chunk-common.80caec6a.css"
+      rel="preload"
+      as="style"
+    />
+    <link
+      href="https://yy-s.zuoyebang.cc/static/hy/sell-payment/css/chunk-vendors.5d7aea17.css"
+      rel="preload"
+      as="style"
+    />
+    <link
+      href="https://yy-s.zuoyebang.cc/static/hy/sell-payment/css/chunk-vendors.5d7aea17.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://yy-s.zuoyebang.cc/static/hy/sell-payment/css/chunk-common.80caec6a.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://yy-s.zuoyebang.cc/static/hy/sell-payment/css/add-order.ed6597fa.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <script>
+      var cName = document.body.className;
+      /airclass_isPad|iPad/gi.test(navigator.userAgent) &&
+        (document.body.className = 'isIpad-primary ' + cName);
+    </script>
+    <div id="_skeleton">
+      <img
+        class="image"
+        src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA3MjAgMTU5NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHRpdGxlPuWhq+WGmeiuouWNlemqqOaetuWbvjwvdGl0bGU+CjxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgo8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgo8cmVjdCB3aWR0aD0iNzIwIiBoZWlnaHQ9IjE1OTYiIGZpbGw9IiNmZmYiLz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjQwIDczKSIgc3Ryb2tlPSIjZmZmIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMiI+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMxIDgpIj4KPHBhdGggZD0ibTggMXY4Ii8+CjxwYXRoIGQ9Im0wIDFoOCIvPgo8L2c+CjxwYXRoIGQ9Im0yNSAyMyAxMi42NTYtMTIuNjU2Ii8+CjxwYXRoIGQ9Im00MSAyNGMwIDkuMzg5LTcuNjExIDE3LTE3IDE3cy0xNy03LjYxMS0xNy0xNyA3LjYxMS0xNyAxNy0xNyIvPgo8L2c+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYxOCA0OTMpIj48L2c+CjxyZWN0IHg9IjMyIiB5PSIxODYiIHdpZHRoPSI0MDAiIGhlaWdodD0iNDgiIGZpbGw9IiNGQUZBRkEiIGZpbGwtcnVsZT0ibm9uemVybyIvPgo8cmVjdCB4PSIzMiIgeT0iMjUwIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjM2IiBmaWxsPSIjRkFGQUZBIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz4KPHJlY3QgeD0iMzIiIHk9IjM4NCIgd2lkdGg9IjQ4MCIgaGVpZ2h0PSI0MCIgZmlsbD0iI0ZBRkFGQSIgZmlsbC1ydWxlPSJub256ZXJvIi8+CjxyZWN0IHk9IjMyNiIgd2lkdGg9IjcyMCIgaGVpZ2h0PSIxOCIgZmlsbD0iI0ZBRkFGQSIgZmlsbC1ydWxlPSJub256ZXJvIi8+CjxyZWN0IHg9IjMyIiB5PSI0NDAiIHdpZHRoPSI2MDAiIGhlaWdodD0iMzYiIGZpbGw9IiNGQUZBRkEiIGZpbGwtcnVsZT0ibm9uemVybyIvPgo8cmVjdCB4PSIzMiIgeT0iNTU2IiB3aWR0aD0iNDgwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjRkFGQUZBIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz4KPHJlY3QgeD0iMzIiIHk9IjYxMiIgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzNiIgZmlsbD0iI0ZBRkFGQSIgZmlsbC1ydWxlPSJub256ZXJvIi8+CjxyZWN0IHg9IjMyIiB5PSI3MjgiIHdpZHRoPSI0ODAiIGhlaWdodD0iNDAiIGZpbGw9IiNGQUZBRkEiIGZpbGwtcnVsZT0ibm9uemVybyIvPgo8cmVjdCB4PSIzMiIgeT0iNzg0IiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjM2IiBmaWxsPSIjRkFGQUZBIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz4KPHJlY3QgeD0iMzIiIHk9IjkwMCIgd2lkdGg9IjQ4MCIgaGVpZ2h0PSI0MCIgZmlsbD0iI0ZBRkFGQSIgZmlsbC1ydWxlPSJub256ZXJvIi8+CjxyZWN0IHg9IjMyIiB5PSI5NTYiIHdpZHRoPSI2MDAiIGhlaWdodD0iMzYiIGZpbGw9IiNGQUZBRkEiIGZpbGwtcnVsZT0ibm9uemVybyIvPgo8cG9seWdvbiBwb2ludHM9IjMyIDEwNzIgNjg5IDEwNzIgNjg5IDExMDggMzIgMTEwOCIgZmlsbD0iI0ZBRkFGQSIgZmlsbC1ydWxlPSJub256ZXJvIi8+Cjxwb2x5Z29uIHBvaW50cz0iMzIgMTE0MCA2ODkgMTE0MCA2ODkgMTE3NiAzMiAxMTc2IiBmaWxsPSIjRkFGQUZBIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz4KPHBvbHlnb24gcG9pbnRzPSIzMiAxMjA4IDY4OSAxMjA4IDY4OSAxMjQ0IDMyIDEyNDQiIGZpbGw9IiNGQUZBRkEiIGZpbGwtcnVsZT0ibm9uemVybyIvPgo8cG9seWdvbiBwb2ludHM9IjMyIDE1MDYgMzEyIDE1MDYgMzEyIDE1NDIgMzIgMTU0MiIgZmlsbD0iI0ZBRkFGQSIgZmlsbC1ydWxlPSJub256ZXJvIi8+CjxyZWN0IHg9IjQ1NiIgeT0iMTQ4NCIgd2lkdGg9IjIzMiIgaGVpZ2h0PSI4MCIgcng9IjQwIiBmaWxsPSIjRkFGQUZBIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz4KPHJlY3Qgd2lkdGg9IjcyMCIgaGVpZ2h0PSIxNDYiIGZpbGw9IiNGQUZBRkEiIGZpbGwtcnVsZT0ibm9uemVybyIvPgo8L2c+Cjwvc3ZnPgo="
+        width="100%"
+      />
+    </div>
+    <div id="app"></div>
+    <script>
+      var sellServer = '';
+    </script>
+    <link
+      href="https://idcmap.zuoyebang.com/httpdns/resource.js?server=[%22sell%22]"
+      rel="preload"
+      as="script"
+    />
+    <script src="https://idcmap.zuoyebang.com/httpdns/resource.js?server=[%22sell%22]"></script>
+    <script>
+      window.sell_server ||
+        document.write(
+          '<script src="https://c1-idcmap.zuoyebang.com/httpdns/resource.js?server=[%22sell%22]"><\/script>'
+        );
+    </script>
+    <script>
+      (sellServer = window.sell_server
+        ? 'https://' + window.sell_server
+        : 'https://sell.zuoyebang.com'),
+        /^https?:\/\/www.zybang.com\//.test(window.location.href) &&
+          !window.sell_server &&
+          (sellServer =
+            window.location.protocol + '//' + window.location.hostname);
+    </script>
+    <script>
+      var UA = window.navigator.userAgent.toLowerCase();
+      (/micromessenger/i.test(UA) ||
+        /miniprogram/i.test(UA) ||
+        -1 < window.location.href.indexOf('WxMiniApp=1')) &&
+        document.write(
+          '<script src="https://yy-s.zuoyebang.cc/static/hy/sell-cdn-lib/js/jweixin-1.3.2.js"><\/script>'
+        );
+    </script>
+    <script src="https://yy-s.zuoyebang.cc/static/zyb-js-sdk/zyb-js-sdk.0.0.30.js"></script>
+    <link
+      href="https://yy-s.zuoyebang.cc/static/zyb-js-sdk/zyb-js-sdk.0.0.30.js"
+      rel="preload"
+      as="script"
+    /><link
+      href="https://yy-s.zuoyebang.cc/static/hy/sell-payment/_extra_res_/index.umd-version-0.1.9.js"
+      rel="preload"
+      as="script"
+    />
+    <script src="https://yy-s.zuoyebang.cc/static/hy/sell-payment/_extra_res_/index.umd-version-0.1.9.js"></script>
+    <link
+      href="https://yy-s.zuoyebang.cc/static/sell-util/index~2.2.1~umd.js"
+      rel="preload"
+      as="script"
+    />
+    <script src="https://yy-s.zuoyebang.cc/static/sell-util/index~2.2.1~umd.js"></script>
+    <script src="https://yy-s.zuoyebang.cc/static/hy/yike-app-ui/2.3.15/yike-app-ui.umd-version-2.3.15.js"></script>
+    <script>
+      function getUrlQuery(e) {
+        var o = location.search.match(
+          new RegExp('[?&]' + e + '=([^&]*)(&?)', 'i')
+        );
+        return o ? o[1] : o;
+      }
+      var cName;
+      getUrlQuery('WxMiniApp') &&
+        ((cName = document.body.className),
+        (document.body.className = 'airclass-primary' + cName));
+      var skeletonSelector = document.getElementById('_skeleton');
+      Object.defineProperty(window, '_loading', {
+        set: function (e) {
+          0 == e && (skeletonSelector.className = 'skeleton-hide');
+        },
+      }),
+        (function () {
+          var e,
+            o = navigator.userAgent;
+          /airclass/i.test(o) ||
+            /(homework)/i.test(o) ||
+            ((e = !1),
+            window.addEventListener('pageshow', function () {
+              e && (console.log('pageshow-reload'), window.location.reload());
+            }),
+            window.addEventListener('pagehide', function () {
+              console.log('pageshow-hide'), (e = !0);
+            }));
+        })(),
+        (function () {
+          var e;
+          localStorage && localStorage.getItem
+            ? 'true' ===
+              (e = localStorage.getItem('zyb_webp_lossy_support_check'))
+              ? (window.CAN_WEBP = !0)
+              : 'false' === e
+              ? (window.CAN_WEBP = !1)
+              : ((window.CAN_WEBP =
+                  0 ==
+                  document
+                    .createElement('canvas')
+                    .toDataURL('image/webp')
+                    .indexOf('data:image/webp')),
+                localStorage.setItem(
+                  'zyb_webp_lossy_support_check',
+                  window.CAN_WEBP
+                ))
+            : (window.CAN_WEBP =
+                0 ==
+                document
+                  .createElement('canvas')
+                  .toDataURL('image/webp')
+                  .indexOf('data:image/webp'));
+        })();
+    </script>
+    <script
+      src="https://yy-s.zuoyebang.cc/zuoyebang/owl/owl-sdk-0.1.31.js"
+      defer="defer"
+      onload="onOwlLoad()"
+    ></script>
+    <script>
+      function onOwlLoad() {
+        window.zyblog = window.zybLogCollect({
+          key: '2248068d-623b-4c99-81bb-4b10670c9cfb',
+          slowReqTime: 500,
+          filterErrors: [],
+          useFMP: !1,
+          urlHelper: function (e) {
+            var t = /^file:\/\/\/var\/mobile\/Containers\/Data\/Application\/[A-Z\-0-9]+\/(.*)+/,
+              l = /(-[a-z0-9]*-hycache.html)$/;
+            if (t.test(e))
+              try {
+                var r = (e = (e = e.split('?')[0]).match(t)[1]).match(l)[0];
+                return e.replace(r, '.html');
+              } catch (t) {
+                return e.split('?')[0];
+              }
+            else if (
+              /^((?:https?)?:\/\/[^/]+)?\/static\/hy\/([^/]+)\/([\w-]+)-\w{8}-hycache.html(.*)/.test(
+                e
+              )
+            )
+              try {
+                r = (e = e.split('?')[0]).match(l)[0] || '.html';
+                return e.replace(r, '.html');
+              } catch (t) {
+                return e.split('?')[0];
+              }
+            return e.split('?')[0];
+          },
+        });
+      }
+    </script>
+    <script
+      defer="defer"
+      src="https://yy-s.zuoyebang.cc/static/ace-sdks/pma-0.0.8.js"
+    ></script>
+    <script
+      src="https://yy-s.zuoyebang.cc/static/hy/yike-sell-app-vue-runtime/js/sentry.browser.min.0.js"
+      crossorigin
+      defer="defer"
+    ></script>
+    <script
+      src="https://yy-s.zuoyebang.cc/static/hy/yike-sell-app-vue-runtime/js/sentry.vue.min.0.js"
+      crossorigin
+      defer="defer"
+      onload="onSentryLoad()"
+    ></script>
+    <script>
+      function onSentryLoad() {
+        window.Sentry &&
+          Sentry.init({
+            dsn:
+              'https://a89b2044803e46ffbe15dab22092f961@sentry.zuoyebang.cc/36',
+            integrations: [
+              new Sentry.Integrations.Vue({ Vue: window.Vue, attachProps: !0 }),
+            ],
+            ignoreErrors: [/^__cb__/],
+          });
+      }
+    </script>
+    <script src="https://yy-s.zuoyebang.cc/static/hy/sell-payment/js/chunk-vendors.a4c94d23.js"></script>
+    <script src="https://yy-s.zuoyebang.cc/static/hy/sell-payment/js/chunk-common.63661f27.js"></script>
+    <script src="https://yy-s.zuoyebang.cc/static/hy/sell-payment/js/add-order.f822b892.js"></script>
+  </body>
+</html>
+<!--35410536202105911488031216-->
+<script>
+  var _trace_page_logid = 3541053620;
+</script>
