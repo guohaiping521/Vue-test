@@ -1,3 +1,4 @@
+// 特性  优缺点  内部如何实现
 Promise.prototype.then = function (onResolved, onRejected) {
     let self = this
     if (this.status === "resolved") {

@@ -35,10 +35,10 @@ export class Observer {
     }
   }
   //遍历对象
-  walk(value) {
-    let keys = Object.keys(value);
+  walk(data) {
+    let keys = Object.keys(data);
     keys.forEach((key) => {
-      defineReactive(value, key);
+      defineReactive(data, key, data[key]);
     });
   }
 }
@@ -116,12 +116,13 @@ export function defineReactive(obj, key, val) {
       return value;
     },
     set(newVal) {
+      console.log("newVal==", newVal);
       const value = getter ? getter.call(obj) : val;
       if (newVal === value) {
         return;
       }
       val = setter ? setter.call(obj, newVal) : newVal;
-      observe(newVal);
+      observe(newVal);//设置的为对象
       dep.notify();
     },
   });

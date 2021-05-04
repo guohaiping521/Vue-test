@@ -4,47 +4,37 @@ var container = document.getElementById('container');
 function getUserAction(e) {
     count++;
     container.innerHTML = count;
+    console.log("count==", count);
     return count;
 };
 
 container.onmousemove = throttle(getUserAction, 1000);
 
-// function throttle(fn, delay) {
-//     let previous = 0
+// function throttle(fn, timeOut) {
+//     let pre = 0
 //     return function () {
+//         let _this = this;
+//         let args = arguments
 //         let now = new Date().getTime();
-//         let context = this;
-//         let args = arguments;
-//         if (now - previous > delay) {
-//             previous = now;
-//             fn.apply(context, args);
+//         if (now - pre > timeOut) {
+//             pre = now
+//             fn.apply(_this, args);
 //         }
 //     }
 // }
 
-function throttle(func, wait) {
-    let timeout;
-    let previous = 0;
 
+function throttle(fn, timeOut) {
+    let timer;
     return function () {
-        context = this;
-        args = arguments;
-        timeout = setTimeout(() => {
-            timeout = null;
-            fn.apply(context, args);
-        }, wait);
+        let _this = this;
+        let args = arguments
+        if (!timer) {
+            timer = setTimeout(() => {
+                timer = null;
+                fn.apply(_this, args);
+            }, timeOut);
+        }
     }
 }
 
-
-
-function getUpadte() {
-    let a=1;
-    if(a==1){
-        console.log("1111111");
-        return;
-    }
-    console.log(1111111111111);  
-}
-
-getUpadte();

@@ -15,8 +15,8 @@ export function renderMixin(Vue) {
     return val == null
       ? ""
       : typeof val === "object"
-      ? JSON.stringify(val)
-      : val;
+        ? JSON.stringify(val)
+        : val;
   };
   Vue.prototype._render = function () {
     const vm = this;

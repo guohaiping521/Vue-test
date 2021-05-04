@@ -3,8 +3,8 @@ export const unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037
 export function def(obj, key, value, enumerable) {
   Object.defineProperty(obj, key, {
     enumerable: !!enumerable,
-    writable: true,
-    configurable: true,
+    writable: false,
+    configurable: false,
     value,
   });
 }
